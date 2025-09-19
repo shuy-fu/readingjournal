@@ -22,6 +22,14 @@
   <p>
     <a href="/new_book">New book</a>
   </p>
+
+  <h2>Books</h2>
+
+  <ul>
+    {% for book in books %}
+    <li><a href="/book/{{ book.id }}">{{ book.title }}</a></li>
+    {% endfor %}
+  </ul>
 </body>
 
 </html>
