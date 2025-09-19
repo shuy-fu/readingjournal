@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>New book</title>
+</head>
+
+<body>
+    <hl>New book</hl>
+  <form action="/create_book" method="post">
+    <p>
+      Title: <br />
+      <input type="text" name="title" />
+    </p>
+    <p>
+      Description: <br />  
+      <textarea name="description" rows="10" cols="60"></textarea>
+    </p>
+    <p>
+      Rating:  <br />
+      <input name="rating" type="number" max="10" min="1" />
+    </p>
+    <input type="submit" value="Create book" />
+  </form>
+</body>
+
+</html>
