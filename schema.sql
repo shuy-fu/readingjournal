@@ -9,5 +9,6 @@ CREATE TABLE books (
     title TEXT,
     description TEXT,
     rating INTEGER,
-    user_id INTEGER REFERENCES users
+    user_id INTEGER REFERENCES users,
+    author TEXT
 );

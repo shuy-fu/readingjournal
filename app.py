@@ -4,6 +4,7 @@ from flask import redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
+import books
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -22,10 +23,9 @@ def create_book():
     description = request.form["description"]
     rating = request.form["rating"]
     user_id = session["user_id"]
+    author = request.form["author"]
 
-    sql = """INSERT INTO books (title, description, rating, user_id)
-            VALUES (?, ?, ?, ?)"""
-    db.execute(sql, [title, description, rating, user_id])
+    books.add_book(title, description, rating, user_id, author)
 
     return redirect("/")
 
