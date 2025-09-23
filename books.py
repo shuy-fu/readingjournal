@@ -20,7 +20,8 @@ def get_book(book_id):
             FROM books, users
             WHERE books.user_id = users.id AND
                 books.id = ?"""
-    return db.query(sql, [book_id])[0]
+    result = db.query(sql, [book_id])
+    return result[0] if result else None
 
 def update_book(book_id, title, description, rating, author):
     sql = """UPDATE books SET title = ?,
