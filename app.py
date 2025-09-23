@@ -9,6 +9,10 @@ import books
 app = Flask(__name__)
 app.secret_key = config.secret_key
 
+def require_login():
+    if "user_id" not in session:
+        abort(403)
+
 @app.route("/")
 def index():
     all_books = books.get_books()
@@ -33,10 +37,13 @@ def show_book(book_id):
 
 @app.route("/new_book")
 def new_book():
+    require_login()
     return render_template("new_book.html")
 
 @app.route("/create_book", methods=["POST"])
 def create_book():
+    require_login()
+
     title = request.form["title"]
     description = request.form["description"]
     rating = request.form["rating"]
@@ -49,6 +56,7 @@ def create_book():
 
 @app.route("/edit_book/<int:book_id>")
 def edit_book(book_id):
+    require_login()
     book = books.get_book(book_id)
     if not book:
         abort(404)
@@ -58,6 +66,7 @@ def edit_book(book_id):
 
 @app.route("/update_book", methods=["POST"])
 def update_book():
+    require_login()
     book_id = request.form["book_id"]
     book = books.get_book(book_id)
     if not book:
@@ -76,6 +85,7 @@ def update_book():
 
 @app.route("/remove_book/<int:book_id>", methods=["GET", "POST"])
 def remove_book(book_id):
+    require_login()
     book = books.get_book(book_id)
     if not book:
         abort(404)
@@ -135,6 +145,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    del session["user_id"]
-    del session["username"]
+    if "user_id" in session:
+        del session["user_id"]
+        del session["username"]
     return redirect("/")

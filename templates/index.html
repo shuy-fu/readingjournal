@@ -2,25 +2,29 @@
 <html>
 
 <head>
-  <title>Readingjournal</title>
+  <title>Reading journal</title>
 </head>
 
 <body>
-    <h1>Readingjournal</h1>
+    <h1>Reading journal</h1>
   {% if session.username %}
   <p>
     You're logged in as {{ session.username }}, your id-number is {{ session.user_id }}
   </p>
+  <p>
+    <a href="/logout">Logout</a>
+  </p>
+  <p>
+    <a href="/new_book">New book</a>
+  </p>
+  {% else %}
+   <p>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+  </p>
   {% endif %}
 
   <p>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-    <a href="/logout">Logout</a>
-  </p>
-
-  <p>
-    <a href="/new_book">New book</a>
     <a href="/find_book">Search book</a>
   </p>
 
