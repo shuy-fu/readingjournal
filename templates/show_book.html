@@ -6,10 +6,11 @@
 </head>
 
 <body>
-  <hl>{{ book.title }}</hl>
+  <h1>{{ book.title }}</h1>
    {% if session.user_id == book.user_id %}
   <p>
     <a href="/edit_book/{{ book.id }}">Edit</a>
+    <a href="/remove_book/{{ book.id }}">Delete</a>
   </p>
   {% endif %}
   <p>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Remove book</title>
+</head>
+
+<body>
+    <h1>Remove book</h1>
+    <p>Book: {{ book.title }}</p>
+    <p>Are you sure you want to remove this book?</p>
+  <form action="/remove_book/{{ book.id }}" method="post">
+    <input type="submit" name="remove" value="Remove book">
+    <input type="submit" name="back" value="Back">
+  </form>
+</body>
+
+</html>
