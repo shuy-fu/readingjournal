@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Search book</title>
+</head>
+
+<body>
+    <h1>Search book</h1>
+
+    <form action="/find_book" method="get">
+        <p>
+            Search: <input type="text" name="query" value="{{ query }}">
+        </p>
+        <input type="submit" value="Search">
+    </form>
+
+    <p>
+        <a href="/">Return</a>
+    </p>
+
+    {% if query %}
+    <h2>Results</h2>
+    <ul>
+        {% for book in results %}
+        <li><a href="/book/{{ book.id }}">{{ book.title }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+
+</html>

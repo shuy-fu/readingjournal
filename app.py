@@ -14,6 +14,16 @@ def index():
     all_books = books.get_books()
     return render_template("index.html", books=all_books)
 
+@app.route("/find_book")
+def find_book():
+    query = request.args.get("query")
+    if query:
+        results = books.find_books(query)
+    else:
+        query = ""
+        results = []
+    return render_template("find_book.html", query=query, results=results)
+
 @app.route("/book/<int:book_id>")
 def show_book(book_id):
     book = books.get_book(book_id)
