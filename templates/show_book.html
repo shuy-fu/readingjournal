@@ -7,6 +7,11 @@
 
 <body>
   <hl>{{ book.title }}</hl>
+   {% if session.user_id == book.user_id %}
+  <p>
+    <a href="/edit_book/{{ book.id }}">Edit</a>
+  </p>
+  {% endif %}
   <p>
     Author: {{ book.author }}
   </p>
