@@ -84,9 +84,17 @@ def update_book():
         abort(403)
 
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     description = request.form["description"]
+    if not description or len(description) > 1000:
+        abort(403)
     rating = request.form["rating"]
+    if not re.search("^(10|[1-9])$", rating):
+        abort(403)
     author = request.form["author"]
+    if not author or len(author) > 50:
+        abort(403)
 
     books.update_book(book_id, title, description, rating, author)
 
