@@ -5,6 +5,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import config
 import db
 import books
+import re
 
 app = Flask(__name__)
 app.secret_key = config.secret_key
@@ -45,10 +46,18 @@ def create_book():
     require_login()
 
     title = request.form["title"]
+    if not title or len(title) > 50:
+        abort(403)
     description = request.form["description"]
+    if len(description) > 1000:
+        abort(403)
     rating = request.form["rating"]
+    if not re.search("^(10|[1-9])$", rating):
+        abort(403)
     user_id = session["user_id"]
     author = request.form["author"]
+    if not author or len(author) > 50:
+        abort(403)
 
     books.add_book(title, description, rating, user_id, author)
 
