@@ -23,7 +23,7 @@
     Rating: {{ book.rating }}
   </p>
   <p>
-    Book added by: {{ book.username }}
+    Book added by: <a href="/user/{{ book.user_id }}">{{ book.username }}</a>
   </p>
   <p>
     <a href="/">Return</a>
