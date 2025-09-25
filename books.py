@@ -1,9 +1,18 @@
 import db
 
-def add_book(title, description, rating, user_id, author):
+def add_book(title, description, rating, user_id, author, classes):
     sql = """INSERT INTO books (title, description, rating, user_id, author)
             VALUES (?, ?, ?, ?, ?)"""
     db.execute(sql, [title, description, rating, user_id, author])
+
+    book_id = db.last_insert_id()
+    sql = "INSERT INTO book_classes (book_id, title, value) VALUES (?, ?, ?)"
+    for title, value in classes:
+        db.execute(sql, [book_id, title, value])
+
+def get_classes(book_id):
+    sql = "SELECT title, value FROM book_classes WHERE book_id = ?"
+    return db.query(sql, [book_id])
 
 def get_books():
     sql = "SELECT id, title FROM books ORDER BY id DESC"

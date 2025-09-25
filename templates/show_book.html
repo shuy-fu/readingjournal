@@ -19,6 +19,16 @@
   <p>
     {{ book.description }}
   </p>
+  {% if classes %}
+  <p>
+    Categories:
+    <ul>
+       {% for class in classes %}
+       <li>{{ class.title }}: {{ class.value }}</li>
+       {% endfor %}
+    </ul>
+  </p>
+  {% endif %}
   <p>
     Rating: {{ book.rating }}
   </p>
