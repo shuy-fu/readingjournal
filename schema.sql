@@ -13,6 +13,12 @@ CREATE TABLE books (
     author TEXT
 );
 
+CREATE TABLE classes (
+    id INTEGER PRIMARY KEY,
+    title TEXT,
+    value TEXT
+);
+
 CREATE TABLE book_classes (
     id INTEGER PRIMARY KEY,
     book_id INTEGER REFERENCES books,
