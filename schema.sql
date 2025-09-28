@@ -13,6 +13,13 @@ CREATE TABLE books (
     author TEXT
 );
 
+CREATE TABLE comments (
+    id INTEGER PRIMARY KEY,
+    book_id INTEGER REFERENCES books,
+    user_id INTEGER REFERENCES users,
+    comment TEXT
+);
+
 CREATE TABLE classes (
     id INTEGER PRIMARY KEY,
     title TEXT,

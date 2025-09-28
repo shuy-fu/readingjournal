@@ -43,7 +43,8 @@ def show_book(book_id):
     if not book:
         abort(404)
     classes = books.get_classes(book_id)
-    return render_template("show_book.html", book=book, classes=classes)
+    comments = books.get_comments(book_id)
+    return render_template("show_book.html", book=book, classes=classes, comments=comments)
 
 @app.route("/new_book")
 def new_book():
@@ -84,6 +85,21 @@ def create_book():
     books.add_book(title, description, rating, user_id, author, classes)
 
     return redirect("/")
+
+@app.route("/create_comment", methods=["POST"])
+def create_comment():
+    require_login()
+
+    comment = request.form["comment"]
+    book_id = request.form["book_id"]
+    book = books.get_book(book_id)
+    if not book:
+        abort(403)
+    user_id = session["user_id"]
+
+    books.add_comment(book_id, user_id, comment)
+
+    return redirect("/book/" + str(book_id))
 
 @app.route("/edit_book/<int:book_id>")
 def edit_book(book_id):

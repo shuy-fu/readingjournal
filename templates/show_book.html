@@ -35,6 +35,19 @@
   <p>
     Book added by: <a href="/user/{{ book.user_id }}">{{ book.username }}</a>
   </p>
+  <h2>Comments</h2>
+  <ul>
+    {% for comment in comments %}
+    <li>{{ comment.comment }}, <a href="{{ comment.user_id }}">{{ comment.username }}</a></li>
+    {% endfor %}
+  </ul>
+  <h2>New comment</h2>
+  <form action="/create_comment" method="post">
+    Comment: <br />
+    <textarea name="comment" rows="6" cols="40" maxlength="1000" required></textarea>
+    <input type="hidden" name="book_id" value="{{ book.id }}">
+    <input type="submit" value="Comment" />
+  </form>
   <p>
     <a href="/">Return</a>
   </p>

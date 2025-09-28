@@ -23,6 +23,18 @@ def add_book(title, description, rating, user_id, author, classes):
     for title, value in classes:
         db.execute(sql, [book_id, title, value])
 
+def add_comment(book_id, user_id, comment):
+    sql = """INSERT INTO comments (book_id, user_id, comment)
+            VALUES (?, ?, ?)"""
+    db.execute(sql, [book_id, user_id, comment])
+
+def get_comments(book_id):
+    sql = """SELECT comments.comment, users.id user_id, users.username
+            FROM comments, users
+            WHERE comments.book_id = ? AND comments.user_id = users.id
+            ORDER BY comments.id DESC"""
+    return db.query(sql, [book_id])
+
 def get_classes(book_id):
     sql = "SELECT title, value FROM book_classes WHERE book_id = ?"
     return db.query(sql, [book_id])
