@@ -44,13 +44,19 @@ def get_book(book_id):
     result = db.query(sql, [book_id])
     return result[0] if result else None
 
-def update_book(book_id, title, description, rating, author):
+def update_book(book_id, title, description, rating, author, classes):
     sql = """UPDATE books SET title = ?,
                             description = ?,
                             rating = ?,
                             author = ?
                         WHERE id = ?"""
     db.execute(sql, [title, description, rating, author, book_id])
+
+    sql = "DELETE FROM book_classes WHERE book_id = ?"
+    db.execute(sql, [book_id])
+    sql = "INSERT INTO book_classes (book_id, title, value) VALUES (?, ?, ?)"
+    for title, value in classes:
+        db.execute(sql, [book_id, title, value])
 
 def remove_book(book_id):
     sql = "DELETE FROM books WHERE id = ?"

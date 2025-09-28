@@ -20,6 +20,21 @@
       Description: <br />  
       <textarea name="description" rows="10" cols="60" maxlength="1000">{{ book.description }}</textarea>
     </p>
+    {% for class in all_classes %}
+    <p>
+      {{ class }}: <br />
+      <select name="classes">
+        <option value="">(select)</option>
+       {% for option in all_classes[class] %}
+          {% if classes[class] == option %}
+          <option value="{{ class }}:{{ option }}" selected>{{ option }}</option>
+          {% else %}
+          <option value="{{ class }}:{{ option }}">{{ option }}</option>
+          {% endif %}
+       {% endfor %}
+      </select>
+    </p>
+    {% endfor %}
     <p>
       Rating:  <br />
       <input name="rating" type="number" max="10" min="1" value="{{ book.rating }}"/>
