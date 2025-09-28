@@ -35,6 +35,19 @@ def get_comments(book_id):
             ORDER BY comments.id DESC"""
     return db.query(sql, [book_id])
 
+def get_images(book_id):
+    sql = "SELECT id FROM images WHERE book_id = ?"
+    return db.query(sql, [book_id])
+
+def add_image(book_id, image):
+    sql ="INSERT INTO images (book_id, image) VALUES (?, ?)"
+    db.execute(sql, [book_id, image])
+
+def get_image(image_id):
+    sql = "SELECT image FROM images WHERE id = ?"
+    result = db.query(sql, [image_id])
+    return result[0][0] if result else None
+
 def get_classes(book_id):
     sql = "SELECT title, value FROM book_classes WHERE book_id = ?"
     return db.query(sql, [book_id])

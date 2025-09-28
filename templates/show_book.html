@@ -11,11 +11,15 @@
   <p>
     <a href="/edit_book/{{ book.id }}">Edit</a>
     <a href="/remove_book/{{ book.id }}">Delete</a>
+    <a href="/images/{{ book.id }}">Images</a>
   </p>
   {% endif %}
   <p>
     Author: {{ book.author }}
   </p>
+  {% for image in images %}
+  <img src="/image/{{ image.id }}" alt="Image" width="400" />
+  {% endfor %}
   <p>
     {{ book.description }}
   </p>

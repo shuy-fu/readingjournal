@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Book images</title>
+</head>
+
+<body>
+  <h1>Book images</h1>
+
+  <p>
+    This book has {{ images | count }} images.
+  </p>  
+
+  <h2>Add new image</h2>
+  <form action="/add_image" method="post" enctype="multipart/form-data">
+    <p>
+      Image: <input type="file" name="image" accept=".png" />
+    </p>
+    <input type="hidden" name="book_id" value="{{ book.id }}">
+    <input type="submit" value="Add" />
+  </form>
+
+  <p>
+    <a href="/book/{{ book.id }}">Return</a>
+  </p>  
+</body>
+
+</html>

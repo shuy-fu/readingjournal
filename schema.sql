@@ -32,3 +32,9 @@ CREATE TABLE book_classes (
     title TEXT,
     value TEXT
 );
+
+CREATE TABLE images (
+    id INTEGER PRIMARY KEY,
+    book_id INTEGER REFERENCES books,
+    image BLOB
+);

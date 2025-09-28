@@ -1,6 +1,6 @@
 import sqlite3
 from flask import Flask
-from flask import abort, redirect, render_template, request, session
+from flask import abort, make_response, redirect, render_template, request, session
 import config
 import db
 import books
@@ -44,7 +44,18 @@ def show_book(book_id):
         abort(404)
     classes = books.get_classes(book_id)
     comments = books.get_comments(book_id)
-    return render_template("show_book.html", book=book, classes=classes, comments=comments)
+    images = books.get_images(book_id)
+    return render_template("show_book.html", book=book, classes=classes, comments=comments, images=images)
+
+@app.route("/image/<int:image_id>")
+def show_image(image_id):
+    image = books.get_image(image_id)
+    if not image:
+        abort(404)
+
+    response = make_response(bytes(image))
+    response.headers.set("Content-Type", "image/png")
+    return response
 
 @app.route("/new_book")
 def new_book():
@@ -118,6 +129,41 @@ def edit_book(book_id):
         classes[entry["title"]] = entry["value"]
 
     return render_template("edit_book.html", book=book, classes=classes, all_classes=all_classes)
+
+@app.route("/images/<int:book_id>")
+def edit_images(book_id):
+    require_login()
+    book = books.get_book(book_id)
+    if not book:
+        abort(404)
+    if book["user_id"] != session["user_id"]:
+        abort(403)
+
+    images = books.get_images(book_id)
+
+    return render_template("images.html", book=book, images=images)
+
+@app.route("/add_image", methods=["POST"])
+def add_image():
+    require_login()
+
+    book_id = request.form["book_id"]
+    book = books.get_book(book_id)
+    if not book:
+        abort(404)
+    if book["user_id"] != session["user_id"]:
+        abort(403)
+
+    file = request.files["image"]
+    if not file.filename.endswith(".png"):
+        return "ERROR: invalid file format"
+
+    image = file.read()
+    if len(image) > 100 * 1024:
+        return "ERROR: image too large"
+
+    books.add_image(book_id, image)
+    return redirect("/images/" + str(book_id))
 
 @app.route("/update_book", methods=["POST"])
 def update_book():
