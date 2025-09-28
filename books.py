@@ -19,8 +19,6 @@ def add_book(title, description, rating, user_id, author, classes):
 
     book_id = db.last_insert_id()
 
-    all_classes = get_all_classes()
-
     sql = "INSERT INTO book_classes (book_id, title, value) VALUES (?, ?, ?)"
     for title, value in classes:
         db.execute(sql, [book_id, title, value])
@@ -62,6 +60,8 @@ def update_book(book_id, title, description, rating, author, classes):
         db.execute(sql, [book_id, title, value])
 
 def remove_book(book_id):
+    sql = "DELETE FROM book_classes WHERE book_id = ?"
+    db.execute(sql, [book_id])
     sql = "DELETE FROM books WHERE id = ?"
     db.execute(sql, [book_id])
 
