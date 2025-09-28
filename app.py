@@ -69,11 +69,17 @@ def create_book():
     if not author or len(author) > 50:
         abort(403)
 
+    all_classes = books.get_all_classes()
+
     classes = []
     for entry in request.form.getlist("classes"):
         if entry:
-            parts = entry.split(":")
-            classes.append((parts[0], parts[1]))
+            class_title, class_value = entry.split(":")
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            classes.append((class_title, class_value))
 
     books.add_book(title, description, rating, user_id, author, classes)
 
@@ -120,11 +126,17 @@ def update_book():
     if not author or len(author) > 50:
         abort(403)
 
+    all_classes = books.get_all_classes()
+
     classes = []
     for entry in request.form.getlist("classes"):
         if entry:
-            parts = entry.split(":")
-            classes.append((parts[0], parts[1]))
+            class_title, class_value = entry.split(":")
+            if class_title not in all_classes:
+                abort(403)
+            if class_value not in all_classes[class_title]:
+                abort(403)
+            classes.append((class_title, class_value))
 
     books.update_book(book_id, title, description, rating, author, classes)
 
