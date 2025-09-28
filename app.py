@@ -165,6 +165,22 @@ def add_image():
     books.add_image(book_id, image)
     return redirect("/images/" + str(book_id))
 
+@app.route("/remove_images", methods=["POST"])
+def remove_images():
+    require_login()
+
+    book_id = request.form["book_id"]
+    book = books.get_book(book_id)
+    if not book:
+        abort(404)
+    if book["user_id"] != session["user_id"]:
+        abort(403)
+
+    for image_id in request.form.getlist("image_id"):
+        books.remove_image(book_id, image_id)
+
+    return redirect("/images/" + str(book_id))
+
 @app.route("/update_book", methods=["POST"])
 def update_book():
     require_login()

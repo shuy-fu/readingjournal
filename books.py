@@ -48,6 +48,10 @@ def get_image(image_id):
     result = db.query(sql, [image_id])
     return result[0][0] if result else None
 
+def remove_image(book_id, image_id):
+    sql = "DELETE FROM images WHERE id = ? AND book_id = ?"
+    db.execute(sql, [image_id, book_id])
+
 def get_classes(book_id):
     sql = "SELECT title, value FROM book_classes WHERE book_id = ?"
     return db.query(sql, [book_id])
