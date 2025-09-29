@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <h1>Reading journal</h1>
+  {% if session.username %}
+  <p>
+    You're logged in as {{ session.username }}
+  </p>
+  {% endif %}
+
+  <p>
+    <a href="/">Homepage</a> |
+    <a href="/find_book">Search book</a> |
+  {% if session.user_id %}
+    <a href="/new_book">New book</a> |
+    <a href="/logout">Logout</a>
+  {% else %}
+    <a href="/login">Login</a> |
+    <a href="/register">Register</a>
+  {% endif %}
+  </p>
+
+  {% block content %}{% endblock %}
+</body>
+
+</html>

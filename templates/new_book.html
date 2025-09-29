@@ -1,42 +1,37 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>New book</title>
-</head>
+{% block title %}New book{% endblock %}
 
-<body>
-    <h1>New book</h1>
-  <form action="/create_book" method="post">
-    <p>
-      Title: <br />
-      <input type="text" name="title" maxlength="50" required/>
-    </p>
-    <p>
-      Author: <br />
-      <input type="text" name="author" maxlength="50" required/>
-    </p>
-    <p>
-      Description: <br />  
-      <textarea name="description" rows="10" cols="60" maxlength="1000"></textarea>
-    </p>
-    {% for class in classes %}
-    <p>
-      {{ class }}: <br />
-      <select name="classes">
-        <option value="">(select)</option>
-       {% for option in classes[class] %}
-        <option value="{{ class }}:{{ option }}">{{ option }}</option>
-       {% endfor %}
-      </select>
-    </p>
-    {% endfor %}
-    <p>
-      Rating:  <br />
-      <input name="rating" type="number" max="10" min="1" pattern="^(10|[1-9])$"/>
-    </p>
-    <input type="submit" value="Create book" />
-  </form>
-</body>
-
-</html>
+{% block content %}
+<h2>New book</h2>
+<form action="/create_book" method="post">
+  <p>
+    Title: <br />
+    <input type="text" name="title" maxlength="50" required/>
+  </p>
+  <p>
+    Author: <br />
+    <input type="text" name="author" maxlength="50" required/>
+  </p>
+  <p>
+    Description: <br />
+    <textarea name="description" rows="10" cols="60" maxlength="1000"></textarea>
+  </p>
+  {% for class in classes %}
+  <p>
+    {{ class }}: <br />
+    <select name="classes">
+      <option value="">(select)</option>
+     {% for option in classes[class] %}
+      <option value="{{ class }}:{{ option }}">{{ option }}</option>
+     {% endfor %}
+    </select>
+  </p>
+  {% endfor %}
+  <p>
+    Rating:  <br />
+    <input name="rating" type="number" max="10" min="1" pattern="^(10|[1-9])$"/>
+  </p>
+  <input type="submit" value="Create book" />
+</form>
+{% endblock %}

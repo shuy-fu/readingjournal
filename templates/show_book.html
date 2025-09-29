@@ -1,60 +1,53 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>{{ book.title }}</title>
-</head>
+{% block title %}{{ book.title }}{% endblock %}
 
-<body>
-  <h1>{{ book.title }}</h1>
-   {% if session.user_id == book.user_id %}
-  <p>
-    <a href="/edit_book/{{ book.id }}">Edit</a>
-    <a href="/remove_book/{{ book.id }}">Delete</a>
-    <a href="/images/{{ book.id }}">Images</a>
-  </p>
-  {% endif %}
-  <p>
-    Author: {{ book.author }}
-  </p>
-  {% for image in images %}
-  <img src="/image/{{ image.id }}" alt="Image" width="400" />
-  {% endfor %}
-  <p>
-    {{ book.description }}
-  </p>
-  {% if classes %}
-  <p>
-    Categories:
-    <ul>
-       {% for class in classes %}
-       <li>{{ class.title }}: {{ class.value }}</li>
-       {% endfor %}
-    </ul>
-  </p>
-  {% endif %}
-  <p>
-    Rating: {{ book.rating }}
-  </p>
-  <p>
-    Book added by: <a href="/user/{{ book.user_id }}">{{ book.username }}</a>
-  </p>
-  <h2>Comments</h2>
+{% block content %}
+<h2>{{ book.title }}</h2>
+{% if session.user_id == book.user_id %}
+<p>
+  <a href="/edit_book/{{ book.id }}">Edit</a>
+  <a href="/remove_book/{{ book.id }}">Delete</a>
+  <a href="/images/{{ book.id }}">Images</a>
+</p>
+{% endif %}
+<p>
+  Author: {{ book.author }}
+</p>
+{% for image in images %}
+<img src="/image/{{ image.id }}" alt="Image" width="400" />
+{% endfor %}
+<p>
+  {{ book.description }}
+</p>
+{% if classes %}
+<p>
+  Categories:
   <ul>
-    {% for comment in comments %}
-    <li>{{ comment.comment }}, <a href="{{ comment.user_id }}">{{ comment.username }}</a></li>
+    {% for class in classes %}
+    <li>{{ class.title }}: {{ class.value }}</li>
     {% endfor %}
   </ul>
-  <h2>New comment</h2>
-  <form action="/create_comment" method="post">
-    Comment: <br />
-    <textarea name="comment" rows="6" cols="40" maxlength="1000" required></textarea>
-    <input type="hidden" name="book_id" value="{{ book.id }}">
-    <input type="submit" value="Comment" />
-  </form>
-  <p>
-    <a href="/">Return</a>
-  </p>
-</body>
-
-</html>
+</p>
+{% endif %}
+<p>
+  Rating: {{ book.rating }}
+</p>
+<p>
+  Book added by: <a href="/user/{{ book.user_id }}">{{ book.username }}</a>
+</p>
+<h3>Comments</h3>
+<ul>
+  {% for comment in comments %}
+  <li>{{ comment.comment }}, <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a></li>
+  {% endfor %}
+</ul>
+<h3>New comment</h3>
+<form action="/create_comment" method="post">
+  Comment: <br />
+  <textarea name="comment" rows="6" cols="40" maxlength="1000" required></textarea>
+  <input type="hidden" name="book_id" value="{{ book.id }}">
+  <br />
+  <input type="submit" value="Comment" />
+</form>
+{% endblock %}

@@ -1,36 +1,13 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Reading journal</title>
-</head>
+{% block title %}Reading journal{% endblock %}
 
-<body>
-    <h1>Reading journal</h1>
-  {% if session.username %}
-  <p>
-    You're logged in as {{ session.username }}
-  </p>
-  {% endif %}
+{% block content %}
+<h2>Books</h2>
 
-  <p>
-    <a href="/find_book">Search book</a> |
-  {% if session.user_id %}
-    <a href="/new_book">New book</a> |
-    <a href="/logout">Logout</a>
-  {% else %}
-    <a href="/login">Login</a> |
-    <a href="/register">Register</a>
-  {% endif %}
-  </p>
-
-  <h2>Books</h2>
-
-  <ul>
-    {% for book in books %}
-    <li><a href="/book/{{ book.id }}">{{ book.title }}</a></li>
-    {% endfor %}
-  </ul>
-</body>
-
-</html>
+<ul>
+  {% for book in books %}
+  <li><a href="/book/{{ book.id }}">{{ book.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

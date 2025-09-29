@@ -1,24 +1,16 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>User {{ user.username }}</title>
-</head>
+{% block title %}User {{ user.username }}{% endblock %}
 
-<body>
-  <h1>User {{ user.username }}</h1>
-  <p>
-    Books read: {{ books | count }}
-  </p>
-  <h2>Books</h2>
-  <ul>
-    {% for book in books %}
-    <li><a href="/book/{{ book.id }}">{{ book.title }}</a></li>
-    {% endfor %}
-  </ul>
-  <p>
-    <a href="/">Return</a>
-  </p>
-</body>
-
-</html>
+{% block content %}
+<h2>User {{ user.username }}</h2>
+<p>
+  Books read: {{ books | count }}
+</p>
+<h3>Books</h3>
+<ul>
+  {% for book in books %}
+  <li><a href="/book/{{ book.id }}">{{ book.title }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

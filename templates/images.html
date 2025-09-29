@@ -1,41 +1,32 @@
-<!DOCTYPE html>
-<html>
+{% extends "layout.html" %}
 
-<head>
-  <title>Book images</title>
-</head>
+{% block title %}Book images{% endblock %}
 
-<body>
-  <h1>Book images</h1>
+{% block content %}
+<h2>Book images</h2>
 
+<p>
+  This book has {{ images | count }} images.
+</p>
+
+<form action="/remove_images" method="post">
+  {% for image in images %}
+  <input type="checkbox" name="image_id" value="{{ image.id }}">
+  <img src="/image/{{ image.id }}" alt="Image" width="400" />
+  <br />
+  {% endfor %}
+  <input type="hidden" name="book_id" value="{{ book.id }}">
   <p>
-    This book has {{ images | count }} images.
-  </p>  
+    <input type="submit" value="Remove" />
+  </p>
+</form>
 
-  <form action="/remove_images" method="post">
-    {% for image in images %}
-    <input type="checkbox" name="image_id" value="{{ image.id }}">
-    <img src="/image/{{ image.id }}" alt="Image" width="400" />
-    <br />
-    {% endfor %}
-    <input type="hidden" name="book_id" value="{{ book.id }}">
-    <p>
-      <input type="submit" value="Remove" />
-    </p>
-  </form>
-
-  <h2>Add new image</h2>
-  <form action="/add_image" method="post" enctype="multipart/form-data">
-    <p>
-      Image: <input type="file" name="image" accept=".png" />
-    </p>
-    <input type="hidden" name="book_id" value="{{ book.id }}">
-    <input type="submit" value="Add" />
-  </form>
-
+<h3>Add new image</h3>
+<form action="/add_image" method="post" enctype="multipart/form-data">
   <p>
-    <a href="/book/{{ book.id }}">Return</a>
-  </p>  
-</body>
-
-</html>
+    Image: <input type="file" name="image" accept=".png" />
+  </p>
+  <input type="hidden" name="book_id" value="{{ book.id }}">
+  <input type="submit" value="Add" />
+</form>
+{% endblock %}
