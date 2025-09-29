@@ -9,23 +9,19 @@
     <h1>Reading journal</h1>
   {% if session.username %}
   <p>
-    You're logged in as {{ session.username }}, your id-number is {{ session.user_id }}
-  </p>
-  <p>
-    <a href="/logout">Logout</a>
-  </p>
-  <p>
-    <a href="/new_book">New book</a>
-  </p>
-  {% else %}
-   <p>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
+    You're logged in as {{ session.username }}
   </p>
   {% endif %}
 
   <p>
-    <a href="/find_book">Search book</a>
+    <a href="/find_book">Search book</a> |
+  {% if session.user_id %}
+    <a href="/new_book">New book</a> |
+    <a href="/logout">Logout</a>
+  {% else %}
+    <a href="/login">Login</a> |
+    <a href="/register">Register</a>
+  {% endif %}
   </p>
 
   <h2>Books</h2>
