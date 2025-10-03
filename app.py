@@ -101,8 +101,7 @@ def create_book():
                 abort(403)
             classes.append((class_title, class_value))
 
-    books.add_book(title, description, rating, user_id, author, classes)
-    book_id = db.last_insert_id()
+    book_id = books.add_book(title, description, rating, user_id, author, classes)
 
     return redirect("/book/" + str(book_id))
 
