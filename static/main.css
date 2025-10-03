@@ -1,0 +1,12 @@
+body {
+  margin: auto;
+  max-width: 50em;
+  font-family: sans-serif;
+  background-color: rgb(251, 216, 213);
+}
+
+.book {
+  border: 2px solid rgb(0, 0, 0);
+  margin: 1em;
+  padding: 0.2em 0.5em;
+}

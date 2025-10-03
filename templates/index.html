@@ -5,9 +5,11 @@
 {% block content %}
 <h2>Books</h2>
 
-<ul>
-  {% for book in books %}
-  <li><a href="/book/{{ book.id }}">{{ book.title }}</a></li>
-  {% endfor %}
-</ul>
+{% for book in books %}
+<div class="book">
+<a href="/book/{{ book.id }}">{{ book.title }}</a> <br />
+Added by: <a href="/user/{{ book.user_id }}">{{ book.username }}</a>
+</div>
+{% endfor %}
+
 {% endblock %}
