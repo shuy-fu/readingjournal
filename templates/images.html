@@ -3,7 +3,7 @@
 {% block title %}Book images{% endblock %}
 
 {% block content %}
-<h2>Book images</h2>
+<h2>Book images: {{ book.title }}</h2>
 
 <p>
   This book has {{ images | count }} images.
@@ -17,7 +17,7 @@
   {% endfor %}
   <input type="hidden" name="book_id" value="{{ book.id }}">
   <p>
-    <input type="submit" value="Remove" />
+    <input type="submit" value="Remove selected" />
   </p>
 </form>
 
@@ -29,4 +29,7 @@
   <input type="hidden" name="book_id" value="{{ book.id }}">
   <input type="submit" value="Add" />
 </form>
+<p>
+  <a href="/book/{{ book.id }}">Return to book</a>
+</p>
 {% endblock %}

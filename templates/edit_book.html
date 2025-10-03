@@ -3,7 +3,7 @@
 {% block title %}Edit book{% endblock %}
 
 {% block content %}
-<h2>Edit book</h2>
+<h2>Edit book: {{ book.title }}</h2>
 <form action="/update_book" method="post">
   <p>
     Title: <br />
@@ -43,4 +43,7 @@
   <input type="hidden" name="book_id" value="{{ book.id }}" />
   <input type="submit" value="Update book" />
 </form>
+<p>
+  <a href="/book/{{ book.id }}">Return to book</a>
+</p>
 {% endblock %}

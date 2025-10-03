@@ -3,11 +3,10 @@
 {% block title %}Remove book{% endblock %}
 
 {% block content %}
-<h2>Remove book</h2>
-  <p>Book: {{ book.title }}</p>
+<h2>Remove book: {{ book.title }}</h2>
   <p>Are you sure you want to remove this book?</p>
 <form action="/remove_book/{{ book.id }}" method="post">
   <input type="submit" name="remove" value="Remove book">
-  <input type="submit" name="back" value="Back">
+  <input type="submit" name="back" value="Return to book">
 </form>
 {% endblock %}
