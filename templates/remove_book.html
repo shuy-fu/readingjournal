@@ -6,6 +6,7 @@
 <h2>Remove book: {{ book.title }}</h2>
   <p>Are you sure you want to remove this book?</p>
 <form action="/remove_book/{{ book.id }}" method="post">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" name="remove" value="Remove book">
   <input type="submit" name="back" value="Return to book">
 </form>

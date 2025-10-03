@@ -41,6 +41,7 @@
     </select>
   </p>
   <input type="hidden" name="book_id" value="{{ book.id }}" />
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="Update book" />
 </form>
 <p>

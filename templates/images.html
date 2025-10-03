@@ -16,6 +16,7 @@
   <br />
   {% endfor %}
   <input type="hidden" name="book_id" value="{{ book.id }}">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <p>
     <input type="submit" value="Remove selected" />
   </p>
@@ -27,6 +28,7 @@
     Image: <input type="file" name="image" accept=".png" />
   </p>
   <input type="hidden" name="book_id" value="{{ book.id }}">
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="Add" />
 </form>
 <p>

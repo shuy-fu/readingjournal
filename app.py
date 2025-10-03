@@ -1,3 +1,4 @@
+import secrets
 import sqlite3
 from flask import Flask
 from flask import abort, flash,  make_response, redirect, render_template, request, session
@@ -12,6 +13,12 @@ app.secret_key = config.secret_key
 
 def require_login():
     if "user_id" not in session:
+        abort(403)
+
+def check_csrf():
+    if "csrf_token" not in request.form:
+        abort(403)
+    if request.form["csrf_token"] != session["csrf_token"]:
         abort(403)
 
 @app.route("/")
@@ -66,6 +73,7 @@ def new_book():
 @app.route("/create_book", methods=["POST"])
 def create_book():
     require_login()
+    check_csrf()
 
     title = request.form["title"]
     if not title or len(title) > 50:
@@ -101,6 +109,7 @@ def create_book():
 @app.route("/create_comment", methods=["POST"])
 def create_comment():
     require_login()
+    check_csrf()
 
     comment = request.form["comment"]
     book_id = request.form["book_id"]
@@ -147,6 +156,7 @@ def edit_images(book_id):
 @app.route("/add_image", methods=["POST"])
 def add_image():
     require_login()
+    check_csrf()
 
     book_id = request.form["book_id"]
     book = books.get_book(book_id)
@@ -171,6 +181,7 @@ def add_image():
 @app.route("/remove_images", methods=["POST"])
 def remove_images():
     require_login()
+    check_csrf()
 
     book_id = request.form["book_id"]
     book = books.get_book(book_id)
@@ -187,6 +198,8 @@ def remove_images():
 @app.route("/update_book", methods=["POST"])
 def update_book():
     require_login()
+    check_csrf()
+
     book_id = request.form["book_id"]
     book = books.get_book(book_id)
     if not book:
@@ -235,6 +248,7 @@ def remove_book(book_id):
     if request.method == "GET":
         return render_template("remove_book.html", book=book)
     if request.method == "POST":
+        check_csrf()
         if "remove" in request.form:
             books.remove_book(book_id)
             return redirect("/")
@@ -274,6 +288,7 @@ def login():
         if user_id:
             session["user_id"] = user_id
             session["username"] = username
+            session["csrf_token"] = secrets.token_hex(16)
             return redirect("/")
         else:
             flash("ERROR: invalid username or password")

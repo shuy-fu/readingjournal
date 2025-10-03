@@ -50,6 +50,7 @@
   <textarea name="comment" rows="6" cols="40" maxlength="1000" required></textarea>
   <input type="hidden" name="book_id" value="{{ book.id }}">
   <br />
+  <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}" />
   <input type="submit" value="Comment" />
 </form>
 {% endif %}
