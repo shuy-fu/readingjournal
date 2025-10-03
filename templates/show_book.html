@@ -43,6 +43,7 @@
   <li>{{ comment.comment }}, <a href="/user/{{ comment.user_id }}">{{ comment.username }}</a></li>
   {% endfor %}
 </ul>
+{% if session.user_id %}
 <h3>New comment</h3>
 <form action="/create_comment" method="post">
   Comment: <br />
@@ -51,4 +52,5 @@
   <br />
   <input type="submit" value="Comment" />
 </form>
+{% endif %}
 {% endblock %}
