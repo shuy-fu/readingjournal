@@ -94,8 +94,9 @@ def create_book():
             classes.append((class_title, class_value))
 
     books.add_book(title, description, rating, user_id, author, classes)
+    book_id = db.last_insert_id()
 
-    return redirect("/")
+    return redirect("/book/" + str(book_id))
 
 @app.route("/create_comment", methods=["POST"])
 def create_comment():
