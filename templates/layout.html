@@ -8,9 +8,9 @@
 
 <body>
     <h1>Reading journal</h1>
-  {% if session.username %}
+  {% if session.user_id %}
   <p>
-    You're logged in as {{ session.username }}
+    You're logged in as <a href="/user/{{ session.user_id }}">{{ session.username }}</a>
   </p>
   {% endif %}
 
