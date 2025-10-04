@@ -19,7 +19,7 @@
 {% endfor %}
 <p>
   Description: <br />
-  {{ book.description }}
+  {{ book.description | show_lines }}
 </p>
 {% if classes %}
 <p>
