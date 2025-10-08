@@ -279,7 +279,8 @@ def create():
         flash("ERROR: username is taken")
         return redirect("/register")
 
-    return redirect("/")
+    flash("Account created")
+    return redirect("/login")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
