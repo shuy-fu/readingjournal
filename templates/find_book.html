@@ -17,6 +17,8 @@
 <ul>
     {% for book in results %}
     <li><a href="/book/{{ book.id }}">{{ book.title }}</a></li>
+    {% else %}
+    No books found.
     {% endfor %}
 </ul>
 {% endif %}
